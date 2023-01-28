@@ -1,9 +1,11 @@
 import { useRef } from "react"
 import { client } from "./common/client"
+import { useNavigate } from "react-router-dom";
 
 export const Login=()=>{
     const email=useRef();
     const password=useRef();
+    const navigate=useNavigate();
 
     async function Login(){
         const emailValue=email.current.value;
@@ -14,6 +16,7 @@ export const Login=()=>{
                 console.log(res.data);
                 if(res.data!="Wrong username or password." && res.data!="User doesnt exist."){
                     localStorage.setItem("token" , res.data);
+                    navigate("/home");
                 }
             }).catch((err)=>{
                 console.log(err);
